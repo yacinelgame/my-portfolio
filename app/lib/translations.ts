@@ -56,6 +56,7 @@ export const translations: Record<Locale, Record<string, any>> = {
       design_work: 'Design Portfolio',
       installations: 'Installation Projects',
       view_all: 'View All Work',
+      view_gallery: 'View Gallery'
     },
     contact: {
       title: 'Get In Touch',
@@ -136,6 +137,7 @@ export const translations: Record<Locale, Record<string, any>> = {
       design_work: 'Portfolio Design',
       installations: "Projets d'Installation",
       view_all: 'Voir Tous les Travaux',
+      view_gallery: 'Voir la Galerie'
     },
     contact: {
       title: 'Contactez-Nous',
@@ -216,6 +218,7 @@ export const translations: Record<Locale, Record<string, any>> = {
       design_work: 'معرض التصاميم',
       installations: 'مشاريع التركيب',
       view_all: 'عرض جميع الأعمال',
+      view_gallery: 'عرض الصور'
     },
     contact: {
       title: 'تواصل معنا',
