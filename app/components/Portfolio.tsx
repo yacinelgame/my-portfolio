@@ -118,7 +118,7 @@ export default function Portfolio() {
         <div className="reveal mb-16">
           <div className="group relative rounded-2xl overflow-hidden bg-dark-card border border-dark-border hover:border-primary/30 transition-all duration-500">
             <div className="grid md:grid-cols-2 gap-0">
-              
+
               {/* Info */}
               <div className="p-8 md:p-10 flex flex-col justify-center order-2 md:order-1">
                 <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary mb-4 w-fit">
@@ -143,7 +143,7 @@ export default function Portfolio() {
               </div>
 
               {/* Preview (Stacked Images) */}
-              <div 
+              <div
                 className="relative h-80 md:h-auto bg-dark-tertiary overflow-hidden cursor-pointer group/preview order-1 md:order-2"
                 onClick={() => openLightbox(0)}
               >
@@ -152,11 +152,11 @@ export default function Portfolio() {
                     {/* Background stacked images */}
                     <div className="absolute inset-0 bg-dark border border-dark-border rounded-xl transform rotate-6 translate-x-4 opacity-50 group-hover/preview:rotate-12 group-hover/preview:translate-x-6 transition-all duration-500" />
                     <div className="absolute inset-0 bg-dark border border-dark-border rounded-xl transform -rotate-3 -translate-x-2 opacity-70 group-hover/preview:-rotate-6 group-hover/preview:-translate-x-4 transition-all duration-500" />
-                    
+
                     {/* Front image */}
                     <div className="absolute inset-0 rounded-xl overflow-hidden border border-dark-border shadow-2xl group-hover/preview:-translate-y-2 group-hover/preview:shadow-primary/20 transition-all duration-500">
-                      <Image 
-                        src={dentalScreenshots[0].src} 
+                      <Image
+                        src={dentalScreenshots[0].src}
                         alt="Dental Flow Preview"
                         fill
                         className="object-cover object-top"
@@ -171,7 +171,50 @@ export default function Portfolio() {
                   </div>
                 </div>
               </div>
-              
+
+            </div>
+          </div>
+        </div>
+
+        {/* Healthy Smile Project */}
+        <div className="reveal mb-16">
+          <div className="group relative rounded-2xl overflow-hidden bg-dark-card border border-dark-border hover:border-primary/30 transition-all duration-500">
+            <div className="grid md:grid-cols-2 gap-0">
+              {/* Preview */}
+              <div className="relative h-64 md:h-auto min-h-[300px] overflow-hidden bg-dark-tertiary">
+                <Image
+                  src="/healthy-smile/screenshot-1.png"
+                  alt="Healthy Smile Preview"
+                  fill
+                  className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+
+              {/* Info */}
+              <div className="p-8 md:p-10 flex flex-col justify-center">
+                <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary mb-4 w-fit">
+                  Dental Clinic Landing Page
+                </span>
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">{t('portfolio.healthy_smile_title')}</h3>
+                <p className="text-gray-light leading-relaxed mb-6">{t('portfolio.healthy_smile_desc')}</p>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {['Next.js', 'Tailwind CSS', 'React'].map((tag) => (
+                    <span key={tag} className="px-3 py-1 rounded-lg text-xs bg-dark-tertiary text-gray-light border border-dark-border">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <a
+                  href="https://healthysmiledz.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-primary inline-flex items-center gap-2 w-fit text-sm"
+                >
+                  <span>{t('portfolio.visit_project')}</span>
+                  <ExternalLink size={16} />
+                </a>
+              </div>
             </div>
           </div>
         </div>

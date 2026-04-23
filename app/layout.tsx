@@ -33,6 +33,16 @@ export const metadata: Metadata = {
     title: 'Pixel & Logic — Full-Service Digital Agency',
     description: 'End-to-end solutions from pixel-perfect design to robust infrastructure.',
     type: 'website',
+    url: 'https://pixelandlogic.vercel.app',
+    siteName: 'Pixel & Logic',
+    images: [
+      {
+        url: 'https://pixelandlogic.vercel.app/logo.png',
+        width: 6750,
+        height: 6750,
+      },
+    ],
+    locale: 'en_US',
   },
 };
 
