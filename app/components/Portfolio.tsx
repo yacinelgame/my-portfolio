@@ -10,36 +10,47 @@ const dentalScreenshots = Array.from({ length: 8 }, (_, i) => ({
   alt: `Dental Flow Screenshot ${i + 1}`,
 }));
 
+const photographeScreenshots = Array.from({ length: 9 }, (_, i) => ({
+  src: `/photographe-ERP/screenshot-${i + 1}.png`,
+  alt: `Photographe ERP Screenshot ${i + 1}`,
+}));
+
 export default function Portfolio() {
   const { t, dir } = useLanguage();
-  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [activeGallery, setActiveGallery] = useState<{ src: string, alt: string }[] | null>(null);
   const [lightboxIdx, setLightboxIdx] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
 
-  const openLightbox = (idx: number) => {
+  const openLightbox = (gallery: { src: string, alt: string }[], idx: number = 0) => {
+    setActiveGallery(gallery);
     setLightboxIdx(idx);
-    setLightboxOpen(true);
     document.body.style.overflow = 'hidden';
   };
 
   const closeLightbox = () => {
-    setLightboxOpen(false);
+    setActiveGallery(null);
     document.body.style.overflow = '';
   };
 
-  const nextImage = () => setLightboxIdx((p) => (p + 1) % dentalScreenshots.length);
-  const prevImage = () => setLightboxIdx((p) => (p - 1 + dentalScreenshots.length) % dentalScreenshots.length);
+  const nextImage = () => {
+    if (!activeGallery) return;
+    setLightboxIdx((p) => (p + 1) % activeGallery.length);
+  };
+  const prevImage = () => {
+    if (!activeGallery) return;
+    setLightboxIdx((p) => (p - 1 + activeGallery.length) % activeGallery.length);
+  };
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (!lightboxOpen) return;
+      if (!activeGallery) return;
       if (e.key === 'Escape') closeLightbox();
       if (e.key === 'ArrowRight') nextImage();
       if (e.key === 'ArrowLeft') prevImage();
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [lightboxOpen]);
+  }, [activeGallery]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -134,7 +145,7 @@ export default function Portfolio() {
                   ))}
                 </div>
                 <button
-                  onClick={() => openLightbox(0)}
+                  onClick={() => openLightbox(dentalScreenshots, 0)}
                   className="btn-outline inline-flex items-center gap-2 w-fit text-sm"
                 >
                   <span>{t('portfolio.view_gallery') || 'View Gallery'}</span>
@@ -145,7 +156,7 @@ export default function Portfolio() {
               {/* Preview (Stacked Images) */}
               <div
                 className="relative h-80 md:h-auto bg-dark-tertiary overflow-hidden cursor-pointer group/preview order-1 md:order-2"
-                onClick={() => openLightbox(0)}
+                onClick={() => openLightbox(dentalScreenshots, 0)}
               >
                 <div className="absolute inset-0 flex items-center justify-center p-8">
                   <div className="relative w-full h-full max-w-sm">
@@ -218,10 +229,72 @@ export default function Portfolio() {
             </div>
           </div>
         </div>
+
+        {/* Photographe ERP Project */}
+        <div className="reveal mb-16">
+          <div className="group relative rounded-2xl overflow-hidden bg-dark-card border border-dark-border hover:border-primary/30 transition-all duration-500">
+            <div className="grid md:grid-cols-2 gap-0">
+
+              {/* Preview (Stacked Images) */}
+              <div
+                className="relative h-80 md:h-auto bg-dark-tertiary overflow-hidden cursor-pointer group/preview"
+                onClick={() => openLightbox(photographeScreenshots, 0)}
+              >
+                <div className="absolute inset-0 flex items-center justify-center p-8">
+                  <div className="relative w-full h-full max-w-sm">
+                    {/* Background stacked images */}
+                    <div className="absolute inset-0 bg-dark border border-dark-border rounded-xl transform rotate-6 translate-x-4 opacity-50 group-hover/preview:rotate-12 group-hover/preview:translate-x-6 transition-all duration-500" />
+                    <div className="absolute inset-0 bg-dark border border-dark-border rounded-xl transform -rotate-3 -translate-x-2 opacity-70 group-hover/preview:-rotate-6 group-hover/preview:-translate-x-4 transition-all duration-500" />
+
+                    {/* Front image */}
+                    <div className="absolute inset-0 rounded-xl overflow-hidden border border-dark-border shadow-2xl group-hover/preview:-translate-y-2 group-hover/preview:shadow-primary/20 transition-all duration-500">
+                      <Image
+                        src={photographeScreenshots[0].src}
+                        alt="Photographe ERP Preview"
+                        fill
+                        className="object-cover object-top"
+                      />
+                      <div className="absolute inset-0 bg-dark/60 flex flex-col items-center justify-center opacity-0 group-hover/preview:opacity-100 transition-opacity duration-300">
+                        <div className="bg-primary text-white rounded-full p-4 mb-2 transform scale-75 group-hover/preview:scale-100 transition-transform duration-300">
+                          <span className="font-bold text-lg">+{photographeScreenshots.length}</span>
+                        </div>
+                        <span className="text-white text-sm font-medium">Click to open gallery</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Info */}
+              <div className="p-8 md:p-10 flex flex-col justify-center">
+                <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary mb-4 w-fit">
+                  Web Application
+                </span>
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">{t('portfolio.photographe_title')}</h3>
+                <p className="text-gray-light leading-relaxed mb-6">{t('portfolio.photographe_desc')}</p>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {['Next.js', 'Tailwind CSS', 'Supabase', 'JWT', 'Next Auth'].map((tag) => (
+                    <span key={tag} className="px-3 py-1 rounded-lg text-xs bg-dark-tertiary text-gray-light border border-dark-border">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <button
+                  onClick={() => openLightbox(photographeScreenshots, 0)}
+                  className="btn-outline inline-flex items-center gap-2 w-fit text-sm"
+                >
+                  <span>{t('portfolio.view_gallery') || 'View Gallery'}</span>
+                  <ExternalLink size={16} className="rotate-180" />
+                </button>
+              </div>
+
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Lightbox */}
-      {lightboxOpen && (
+      {activeGallery && (
         <div className="lightbox-overlay" onClick={closeLightbox}>
           <button
             onClick={(e) => { e.stopPropagation(); closeLightbox(); }}
@@ -245,8 +318,8 @@ export default function Portfolio() {
           </button>
 
           <Image
-            src={dentalScreenshots[lightboxIdx].src}
-            alt={dentalScreenshots[lightboxIdx].alt}
+            src={activeGallery[lightboxIdx].src}
+            alt={activeGallery[lightboxIdx].alt}
             width={1200}
             height={800}
             className="max-w-[90vw] max-h-[85vh] object-contain rounded-lg"
@@ -255,7 +328,7 @@ export default function Portfolio() {
 
           {/* Counter */}
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/50 text-sm glass px-4 py-2 rounded-full">
-            {lightboxIdx + 1} / {dentalScreenshots.length}
+            {lightboxIdx + 1} / {activeGallery.length}
           </div>
         </div>
       )}
