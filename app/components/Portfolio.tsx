@@ -235,6 +235,29 @@ export default function Portfolio() {
           <div className="group relative rounded-2xl overflow-hidden bg-dark-card border border-dark-border hover:border-primary/30 transition-all duration-500">
             <div className="grid md:grid-cols-2 gap-0">
 
+              {/* Info */}
+              <div className="p-8 md:p-10 flex flex-col justify-center">
+                <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary mb-4 w-fit">
+                  Web Application
+                </span>
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">{t('portfolio.photographe_title')}</h3>
+                <p className="text-gray-light leading-relaxed mb-6">{t('portfolio.photographe_desc')}</p>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {['Next.js', 'Tailwind CSS', 'Supabase', 'JWT', 'Next Auth'].map((tag) => (
+                    <span key={tag} className="px-3 py-1 rounded-lg text-xs bg-dark-tertiary text-gray-light border border-dark-border">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <button
+                  onClick={() => openLightbox(photographeScreenshots, 0)}
+                  className="btn-outline inline-flex items-center gap-2 w-fit text-sm"
+                >
+                  <span>{t('portfolio.view_gallery') || 'View Gallery'}</span>
+                  <ExternalLink size={16} className="rotate-180" />
+                </button>
+              </div>
+
               {/* Preview (Stacked Images) */}
               <div
                 className="relative h-80 md:h-auto bg-dark-tertiary overflow-hidden cursor-pointer group/preview"
@@ -264,30 +287,6 @@ export default function Portfolio() {
                   </div>
                 </div>
               </div>
-
-              {/* Info */}
-              <div className="p-8 md:p-10 flex flex-col justify-center">
-                <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary mb-4 w-fit">
-                  Web Application
-                </span>
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">{t('portfolio.photographe_title')}</h3>
-                <p className="text-gray-light leading-relaxed mb-6">{t('portfolio.photographe_desc')}</p>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {['Next.js', 'Tailwind CSS', 'Supabase', 'JWT', 'Next Auth'].map((tag) => (
-                    <span key={tag} className="px-3 py-1 rounded-lg text-xs bg-dark-tertiary text-gray-light border border-dark-border">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <button
-                  onClick={() => openLightbox(photographeScreenshots, 0)}
-                  className="btn-outline inline-flex items-center gap-2 w-fit text-sm"
-                >
-                  <span>{t('portfolio.view_gallery') || 'View Gallery'}</span>
-                  <ExternalLink size={16} className="rotate-180" />
-                </button>
-              </div>
-
             </div>
           </div>
         </div>
