@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { useLanguage } from '@/app/context/LanguageContext';
-import { ExternalLink, X, ChevronLeft, ChevronRight, Star } from 'lucide-react';
+import { ExternalLink, X, ChevronLeft, ChevronRight, Star, Palette } from 'lucide-react';
 
 const dentalScreenshots = Array.from({ length: 8 }, (_, i) => ({
   src: `/dental-flow/screenshot-${i + 1}.png`,
@@ -14,6 +14,85 @@ const photographeScreenshots = Array.from({ length: 9 }, (_, i) => ({
   src: `/photographe-ERP/screenshot-${i + 1}.png`,
   alt: `Photographe ERP Screenshot ${i + 1}`,
 }));
+
+// Design project galleries
+const qcmasterViImages = [
+  ...Array.from({ length: 5 }, (_, i) => ({
+    src: `/qcmaster-visual-identity/img-${i + 1}.png`,
+    alt: `QCMaster Visual Identity ${i + 1}`,
+  })),
+  { src: `/qcmaster-visual-identity/vid-1.mp4`, alt: `QCMaster Visual Identity Video` },
+];
+
+const dentalViImages = Array.from({ length: 5 }, (_, i) => ({
+  src: `/dental-flow-visual-identity/img-${i + 1}.png`,
+  alt: `Dental Flow Visual Identity ${i + 1}`,
+}));
+
+const aatuftingViImages = Array.from({ length: 9 }, (_, i) => ({
+  src: `/aatufting-visual-identity/img-${i + 1}.png`,
+  alt: `AATufting Visual Identity ${i + 1}`,
+}));
+
+const misskaImages = Array.from({ length: 4 }, (_, i) => ({
+  src: `/misska-flowers-graphic-design/img-${i + 1}.png`,
+  alt: `Misska Flowers Graphic Design ${i + 1}`,
+}));
+
+const cuteYarnImages = Array.from({ length: 2 }, (_, i) => ({
+  src: `/cute-yarn-graphic-design/img-${i + 1}.png`,
+  alt: `Cute Yarn Graphic Design ${i + 1}`,
+}));
+
+const gateauMelinaImages = Array.from({ length: 4 }, (_, i) => ({
+  src: `/gateau-melina-graphic-design/img-${i + 1}.png`,
+  alt: `Gâteau Melina Graphic Design ${i + 1}`,
+}));
+
+const designProjects = [
+  {
+    titleKey: 'portfolio.qcmaster_vi_title',
+    descKey: 'portfolio.qcmaster_vi_desc',
+    category: 'Visual Identity',
+    gallery: qcmasterViImages,
+    accent: 'from-violet-500/80 to-indigo-600/80',
+  },
+  {
+    titleKey: 'portfolio.dental_vi_title',
+    descKey: 'portfolio.dental_vi_desc',
+    category: 'Visual Identity',
+    gallery: dentalViImages,
+    accent: 'from-cyan-500/80 to-blue-600/80',
+  },
+  {
+    titleKey: 'portfolio.aatufting_vi_title',
+    descKey: 'portfolio.aatufting_vi_desc',
+    category: 'Visual Identity',
+    gallery: aatuftingViImages,
+    accent: 'from-amber-500/80 to-orange-600/80',
+  },
+  {
+    titleKey: 'portfolio.misska_title',
+    descKey: 'portfolio.misska_desc',
+    category: 'Graphic Design',
+    gallery: misskaImages,
+    accent: 'from-pink-500/80 to-rose-600/80',
+  },
+  {
+    titleKey: 'portfolio.cute_yarn_title',
+    descKey: 'portfolio.cute_yarn_desc',
+    category: 'Graphic Design',
+    gallery: cuteYarnImages,
+    accent: 'from-emerald-500/80 to-teal-600/80',
+  },
+  {
+    titleKey: 'portfolio.gateau_melina_title',
+    descKey: 'portfolio.gateau_melina_desc',
+    category: 'Graphic Design',
+    gallery: gateauMelinaImages,
+    accent: 'from-fuchsia-500/80 to-purple-600/80',
+  },
+];
 
 export default function Portfolio() {
   const { t, dir } = useLanguage();
@@ -290,6 +369,70 @@ export default function Portfolio() {
             </div>
           </div>
         </div>
+
+        {/* ────────── Design & Branding Section ────────── */}
+        <div className="reveal mt-24 mb-8">
+          <div className="flex items-center gap-2 mb-2">
+            <Palette size={18} className="text-primary" />
+            <span className="text-sm font-semibold text-primary uppercase tracking-wider">{t('portfolio.design_section_title')}</span>
+          </div>
+          <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">{t('portfolio.design_section_title')}</h3>
+          <p className="text-gray-light text-base max-w-2xl mb-10">{t('portfolio.design_section_subtitle')}</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
+          {designProjects.map((project, idx) => (
+            <div
+              key={idx}
+              onClick={() => openLightbox(project.gallery, 0)}
+              className="group relative rounded-2xl overflow-hidden bg-dark-card border border-dark-border hover:border-primary/30 cursor-pointer transition-all duration-500 hover:shadow-xl hover:shadow-primary/5"
+            >
+              {/* Cover Image */}
+              <div className="relative h-56 md:h-64 overflow-hidden">
+                <Image
+                  src={project.gallery[0].src}
+                  alt={t(project.titleKey)}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                {/* Gradient overlay */}
+                <div className={`absolute inset-0 bg-gradient-to-t ${project.accent} opacity-0 group-hover:opacity-60 transition-opacity duration-500`} />
+                <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/30 to-transparent" />
+
+                {/* Image count badge */}
+                <div className="absolute top-3 end-3 glass px-3 py-1.5 rounded-full flex items-center gap-1.5 text-white/80 text-xs font-medium">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" /><circle cx="8.5" cy="8.5" r="1.5" /><polyline points="21 15 16 10 5 21" /></svg>
+                  {project.gallery.length}
+                </div>
+
+                {/* Category badge */}
+                <div className="absolute top-3 start-3">
+                  <span className="px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-white/10 backdrop-blur-md text-white border border-white/10">
+                    {project.category}
+                  </span>
+                </div>
+
+                {/* Hover CTA */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="bg-white text-dark rounded-full px-5 py-2.5 text-sm font-semibold transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 flex items-center gap-2">
+                    {t('portfolio.view_gallery') || 'View Gallery'}
+                    <ChevronRight size={16} />
+                  </div>
+                </div>
+              </div>
+
+              {/* Info */}
+              <div className="p-5">
+                <h4 className="text-lg font-bold text-white mb-1.5 group-hover:text-primary transition-colors duration-300">
+                  {t(project.titleKey)}
+                </h4>
+                <p className="text-gray-light text-sm leading-relaxed line-clamp-2">
+                  {t(project.descKey)}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Lightbox */}
@@ -316,14 +459,24 @@ export default function Portfolio() {
             <ChevronRight size={24} />
           </button>
 
-          <Image
-            src={activeGallery[lightboxIdx].src}
-            alt={activeGallery[lightboxIdx].alt}
-            width={1200}
-            height={800}
-            className="max-w-[90vw] max-h-[85vh] object-contain rounded-lg"
-            onClick={(e) => e.stopPropagation()}
-          />
+          {activeGallery[lightboxIdx].src.endsWith('.mp4') ? (
+            <video
+              src={activeGallery[lightboxIdx].src}
+              controls
+              autoPlay
+              className="max-w-[90vw] max-h-[85vh] rounded-lg"
+              onClick={(e) => e.stopPropagation()}
+            />
+          ) : (
+            <Image
+              src={activeGallery[lightboxIdx].src}
+              alt={activeGallery[lightboxIdx].alt}
+              width={1200}
+              height={800}
+              className="max-w-[90vw] max-h-[85vh] object-contain rounded-lg"
+              onClick={(e) => e.stopPropagation()}
+            />
+          )}
 
           {/* Counter */}
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/50 text-sm glass px-4 py-2 rounded-full">
